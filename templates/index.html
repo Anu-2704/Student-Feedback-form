@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Feedback Portal</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Main Page -->
+    <div class="page-wrapper">
+
+        <div class="feedback-container">
+
+            <!-- Header -->
+            <header class="page-header">
+
+                <div class="icon-circle">
+                    💬
+                </div>
+
+                <h1>Student Feedback Portal</h1>
+
+                <p>
+                    We value your opinion. Share your feedback
+                    and help us improve.
+                </p>
+
+            </header>
+
+
+            <!-- Feedback Form -->
+            <section class="form-section">
+
+                <div class="section-title">
+                    <h2>Submit Your Feedback</h2>
+                    <p>Please fill in all the details below.</p>
+                </div>
+
+
+                <form method="POST"
+                      class="feedback-form"
+                      id="feedbackForm">
+
+
+                    <!-- Student Name -->
+                    <div class="form-group">
+
+                        <label for="name">
+                            Student Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                        <small class="error-message"
+                               id="nameError"></small>
+
+                    </div>
+
+
+                    <!-- Roll Number -->
+                    <div class="form-group">
+
+                        <label for="rollno">
+                            Roll Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="rollno"
+                            name="rollno"
+                            placeholder="Enter your roll number"
+                            required
+                        >
+
+                        <small class="error-message"
+                               id="rollnoError"></small>
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email ID
+                        </label>
+
+                        <input
+                            type="text"
+                            id="email"
+                            name="email"
+                            placeholder="example@email.com"
+                            required
+                        >
+
+                        <small class="error-message"
+                               id="emailError"></small>
+
+                    </div>
+
+
+                    <!-- Course -->
+                    <div class="form-group">
+
+                        <label for="course">
+                            Course
+                        </label>
+
+                        <input
+                            type="text"
+                            id="course"
+                            name="course"
+                            placeholder="Enter your course"
+                            required
+                        >
+
+                        <small class="error-message"
+                               id="courseError"></small>
+
+                    </div>
+
+
+                    <!-- Feedback -->
+                    <div class="form-group full-width">
+
+                        <label for="feedback">
+                            Your Feedback
+                        </label>
+
+                        <textarea
+                            id="feedback"
+                            name="feedback"
+                            placeholder="Write your feedback here..."
+                            required
+                        ></textarea>
+
+                        <small class="error-message"
+                               id="feedbackError"></small>
+
+                    </div>
+
+
+                    <!-- Submit -->
+                    <div class="button-container">
+
+                        <button type="submit"
+                                class="submit-button">
+
+                            Submit Feedback
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- Submitted Feedback -->
+            <section class="submitted-section">
+
+                <div class="section-title">
+
+                    <h2>Submitted Feedback</h2>
+
+                    <p>
+                        Feedback submitted by students
+                    </p>
+
+                </div>
+
+
+                {% if feedbacks %}
+
+                    {% for item in feedbacks %}
+
+                        <div class="feedback-card">
+
+                            <div class="student-info">
+
+                                <div class="student-avatar">
+                                    {{ item.name[0] | upper }}
+                                </div>
+
+                                <div>
+                                    <h3>{{ item.name }}</h3>
+
+                                    <span>
+                                        {{ item.course }}
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="details">
+
+                                <div class="detail-item">
+
+                                    <strong>Roll Number</strong>
+
+                                    <span>
+                                        {{ item.rollno }}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <strong>Email</strong>
+
+                                    <span>
+                                        {{ item.email }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="feedback-text">
+
+                                <strong>Feedback</strong>
+
+                                <p>
+                                    {{ item.feedback }}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            📝
+                        </div>
+
+                        <h3>No feedback yet</h3>
+
+                        <p>
+                            Be the first student to submit feedback.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+
+            <!-- Footer -->
+            <footer>
+
+                <p>
+                    Student Feedback Portal
+                    <span>•</span>
+                    Built with Flask
+                </p>
+
+            </footer>
+
+        </div>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}">
+    </script>
+
+</body>
+
+</html>
